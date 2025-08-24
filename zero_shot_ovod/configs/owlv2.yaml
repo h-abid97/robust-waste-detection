@@ -1,0 +1,77 @@
+device: "cuda"
+model_name: "google/owlv2-large-patch14"
+
+data:
+  test_images_dir: "./data/zerowaste-f/test/data"
+  labels_path: "./data/zerowaste-f/test/labels.json"
+
+eval:
+  score_threshold: 0.005
+  batch_size: 6
+  num_workers: 2
+  output_dir: "./zero_shot_ovod/evaluation_results/owlv2"
+
+prompts:
+  class_only:
+    description: "Exact category labels (Baseline)"
+    strings:
+      - "soft plastic"
+      - "rigid plastic"
+      - "metal"
+      - "cardboard"
+
+  enhanced_properties:
+    description: "Detailed material properties with location"
+    strings:
+      - "flexible translucent bag on belt"
+      - "rigid hollow container in sorting"
+      - "metallic can in stream"
+      - "structured cardboard in waste"
+
+  visibility_focused:
+    description: "Combines visibility cues with context"
+    strings:
+      - "flexible plastic visible in sorting"
+      - "rigid container visible on belt"
+      - "metal can visible in stream"
+      - "cardboard visible in waste"
+
+  pure_context:
+    description: "Minimal descriptors with strong context"
+    strings:
+      - "plastic bag in sorting"
+      - "rigid container on belt"
+      - "metal can in waste"
+      - "cardboard in recycling"
+
+  recycling_context:
+    description: "Recycling-specific context"
+    strings:
+      - "recyclable plastic bag"
+      - "recyclable plastic container"
+      - "recyclable metal can"
+      - "recyclable cardboard box"
+
+  hybrid_simplified:
+    description: "Combines successful elements with simplification"
+    strings:
+      - "flexible plastic bag on belt"
+      - "rigid container in recyclables"
+      - "metal can in sorting"
+      - "cardboard box separate from paper"
+
+  location_enhanced:
+    description: "Strong emphasis on location and sorting context"
+    strings:
+      - "plastic bag on sorting belt"
+      - "rigid container in recycling line"
+      - "metal can in waste stream"
+      - "cardboard on conveyor belt"
+
+  combined_success:
+    description: "Combines elements from the most successful trials"
+    strings:
+      - "translucent plastic bag or film in waste stream"
+      - "sturdy rigid plastic container or jug in facility sorting"
+      - "shiny metal tin or can on the waste belt"
+      - "brown cardboard box separated from paper"

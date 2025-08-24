@@ -1,0 +1,80 @@
+device: "cuda"
+
+data:
+  img_dir: "./data/zerowaste-f/test/data"
+  ann_file: "./data/zerowaste-f/test/labels.json"
+
+model:
+  config: "./external_modules/GroundingDINO/groundingdino/config/GroundingDINO_SwinB_cfg.py"
+  checkpoint: "./external_modules/GroundingDINO/weights/groundingdino_swinb_cogcoor.pth"
+
+eval:
+  batch_size: 8
+  num_workers: 2
+  num_select: 300
+  output_dir: "./zero_shot_ovod/evaluation_results/groundingdino"
+
+prompts:
+  class_only:
+    description: "Baseline"
+    strings:
+      - "soft plastic"
+      - "rigid plastic"
+      - "metal"
+      - "cardboard"
+
+  location_enhanced:
+    description: "Strong emphasis on location and sorting context"
+    strings:
+      - "plastic bag among waste"
+      - "plastic container in clutter"
+      - "metal can on conveyor"
+      - "cardboard box in sorting"
+
+  pure_context:
+    description: "Minimal descriptors with strong context"
+    strings:
+      - "plastic bag among waste"
+      - "hard solid plastic container"
+      - "metal can"
+      - "brown cardboard box"
+
+  recycling_context:
+    description: "Recycling-specific context"
+    strings:
+      - "recyclable plastic bag"
+      - "recyclable plastic container"
+      - "recyclable metal can"
+      - "recyclable cardboard box"
+
+  hybrid_simplified:
+    description: "Combines successful elements with simplification"
+    strings:
+      - "thin plastic bag"
+      - "hard plastic container"
+      - "metal can"
+      - "brown cardboard box"
+
+  enhanced_properties:
+    description: "Detailed material properties with location"
+    strings:
+      - "crumpled translucent plastic bag or wrap"
+      - "solid rigid plastic container or bottle"
+      - "shiny reflective metal can or tin"
+      - "thick brown cardboard box or packaging"
+
+  visibility_focused:
+    description: "Combines visibility cues with context"
+    strings:
+      - "transparent wrinkled plastic"
+      - "hard shaped plastic"
+      - "metallic shiny object"
+      - "brown flat cardboard"
+
+  combined_success:
+    description: "Combines elements from the most successful trials"
+    strings:
+      - "flexible plastic bag or wrap"
+      - "hollow rigid plastic container or bottle"
+      - "shiny metallic can"
+      - "stiff brown cardboard box"

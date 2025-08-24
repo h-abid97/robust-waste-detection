@@ -1,0 +1,16 @@
+model:
+  weights: "yolov8l-world.pt"
+
+data:
+  image_dir: "./data/zerowaste-f/test/data"
+  labels_path: "./data/zerowaste-f/test/labels.json"
+
+classes:
+  - "soft plastic"
+  - "rigid plastic"
+  - "metal"
+  - "cardboard"
+
+eval:
+  conf_threshold: 0.0
+  output_dir: "./zero_shot_ovod/evaluation_results/yoloworld"

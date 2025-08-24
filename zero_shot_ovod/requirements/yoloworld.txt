@@ -1,0 +1,25 @@
+# python 3.10
+
+# Core DL frameworks
+torch==2.7.1
+torchvision==0.22.1
+
+# Ultralytics YOLO
+ultralytics==8.3.173
+
+# CLIP from GitHub
+clip @ git+https://github.com/ultralytics/CLIP.git@a6238961f9fab312d99c7709f8c7485b3f9a9b50
+
+# Vision & detection utilities
+opencv-python==4.12.0.88
+pycocotools==2.0.10
+tqdm==4.67.1
+
+# Data handling & maths
+numpy==2.2.6
+pandas==2.3.1
+scipy==1.15.3
+
+# Misc
+requests==2.32.4
+packaging==25.0

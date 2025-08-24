@@ -1,0 +1,65 @@
+# ===========================
+# Python
+# ===========================
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+*.egg-info/
+*.egg
+*.manifest
+*.spec
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter/IPython
+.ipynb_checkpoints/
+.profile
+*.ipynb_convert
+*.ipynb_checkpoints/
+hf-download.ipynb
+hf-upload.ipynb
+
+# ===========================
+# Project-specific
+# ===========================
+
+# Data
+data/pseudo_labels/*
+data/zerowaste-f/
+data/zerowaste-s/
+
+# Weights and checkpoints
+weights/
+
+# Experiment results, logs, and temp files
+experiments/
+work_dirs/
+logs/
+*.log
+
+# Cache
+.cache/
+huggingface/
+*.pkl
+*.npz
+*.npy
+
+# ===========================
+# IDEs
+# ===========================
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ===========================
+# OS-specific
+# ===========================
+.DS_Store
+Thumbs.db

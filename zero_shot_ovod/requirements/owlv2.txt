@@ -1,0 +1,26 @@
+# python 3.9
+
+# Core DL frameworks
+torch==2.5.0
+accelerate==1.1.1
+transformers==4.46.0
+datasets==3.1.0
+safetensors==0.4.5
+tokenizers==0.20.1
+huggingface-hub==0.26.1
+
+# Vision & preprocessing
+opencv-python==4.10.0.84
+albumentations==1.4.21
+pillow==11.0.0
+pycocotools==2.0.8
+
+# Data science & utilities
+numpy==2.0.2
+pandas==2.2.3
+scikit-learn==1.5.2
+scikit-image==0.24.0
+tqdm==4.66.5
+
+# Metrics & logging
+torchmetrics==1.6.0
