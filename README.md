@@ -256,6 +256,8 @@ python semi_sup/utils/add_offset.py
 
 The below commands will allow you to train GroudingDINO (Swin-T/Swin-B) in a semi-supervised fashion on the labeled ZeroWaste-f train set and the pseudo-labeled ZeroWaste-s subset.
 
+NOTE: Before running the commands, please make sure that you have downloaded these [weights](#2-download-checkpoints-directly-into-weights).
+
 ```bash
 # GroundingDINO Swin-T (ZeroWaste-f fine-tuned)
 python external_modules/mmdetection/tools/train.py \
