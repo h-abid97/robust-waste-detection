@@ -55,6 +55,19 @@ huggingface/
 *.npy
 
 # ===========================
+# Vendored external modules
+# (track source code, ignore heavy runtime artifacts)
+# ===========================
+external_modules/**/__pycache__/
+external_modules/**/work_dirs/
+external_modules/**/checkpoints/
+external_modules/**/runs/
+external_modules/**/*.pth
+external_modules/**/*.pt
+external_modules/**/*.ckpt
+external_modules/**/*.log
+
+# ===========================
 # IDEs
 # ===========================
 .vscode/
