@@ -62,6 +62,7 @@ robust-waste-detection/
 </br>
 
 ## :wrench: Installation
+### NOTE: This setup process is only for the fully supervised and semi-supervised experiments. For the zero shot OVOD setup, please refer to [zero_shot_ovod/README.md](zero_shot_ovod/README.md).
 *If you face issues creating the environment, visit https://mmdetection.readthedocs.io/en/latest/get_started.html for help.*
 
 #### 1. Clone the repo and change current directory
