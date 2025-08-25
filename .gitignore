@@ -42,7 +42,7 @@ weights/
 
 # Experiment results, logs, and temp files
 experiments/
-evaluation_results/
+zero_shot_ovod/evaluation_results/
 work_dirs/
 logs/
 *.log
