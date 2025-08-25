@@ -14,7 +14,7 @@
 
 <hr />
 
-| ![main figure](/media/GDINO_annot_comparison.png)|
+| ![main figure](/media/GDINO_annot_comparison_updated.png)|
 |:--| 
 | <p align="justify">We introduce a label-efficient framework for waste detection on the industrial ZeroWaste dataset that unifies zero-shot open-vocabulary evaluation, strong supervised baselines, and semi-supervised learning. Optimizing prompts nearly doubles zero-shot mAP for OVOD models, while fine-tuning modern detectors establishes a 51.6 mAP baseline. An ensemble-based soft pseudo-labeling pipeline (WBF + consensus weighting) then exploits unlabeled data to surpass full supervision (up to 54.3 mAP, +2.7–3.7 mAP). Together, these components provide a reproducible benchmark and a scalable annotation strategy for real-world material-recovery facilities.</p> |
 
