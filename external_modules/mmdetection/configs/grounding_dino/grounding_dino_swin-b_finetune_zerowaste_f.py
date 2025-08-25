@@ -2,8 +2,7 @@ _base_ = [
     './grounding_dino_swin-t_finetune_16xb2_1x_coco.py',
 ]
 
-#load_from = 'https://download.openmmlab.com/mmdetection/v3.0/grounding_dino/groundingdino_swinb_cogcoor_mmdet-55949c9c.pth' 
-load_from = './weights/mmdet_pre-trained/groundingdino_swinb_cogcoor_mmdet-55949c9c.pth'
+load_from = 'https://download.openmmlab.com/mmdetection/v3.0/grounding_dino/groundingdino_swinb_cogcoor_mmdet-55949c9c.pth' 
 
 data_root = './data/zerowaste-f'
 class_name = ('rigid_plastic', 'cardboard', 'metal', 'soft_plastic')
