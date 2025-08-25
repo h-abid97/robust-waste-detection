@@ -229,7 +229,19 @@ Semi-supervised training yields **+2–4 mAP improvements**, demonstrating the v
 
 ### :gear: Training
 Generate the ensemble-based pseudo-annotations for the unlabeled ZeroWaste-s subset by following the steps outlined below:
+#### 1. Install the CLI:
+```bash
+pip install -U "huggingface_hub>=0.23.0"
+```
 
+#### 2. Download the individual pseudo-annotation json files from the ensemble:
+```bash
+huggingface-cli download h-abid/bmvc-gdino-zerowaste \
+  --include "pseudo_annotations/*" \
+  --local-dir ./semi_sup/
+```
+
+#### 3. Run the commands below to generate the final pseudo-annotation file:
 ```bash
 # 1. Generate a single consolidated pseudo-annotations json file
 python semi_sup/scripts/consolidate_pseudo_annotations.py

@@ -34,11 +34,15 @@ data/pseudo_labels/*
 data/zerowaste-f/
 data/zerowaste-s/
 
+# Pseudo Annotations
+semi_sup/pseudo_annotations/
+
 # Weights and checkpoints
 weights/
 
 # Experiment results, logs, and temp files
 experiments/
+evaluation_results/
 work_dirs/
 logs/
 *.log
