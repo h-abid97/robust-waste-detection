@@ -210,7 +210,7 @@ python zero_shot_ovod/src/yoloworld_eval.py   --config zero_shot_ovod/configs/yo
 
 ## 5) Outputs
 
-Each run creates: `evaluation_results/<model>/`. Each run outputs for each prompt set:
+Each run creates: `zero_shot_ovod/evaluation_results/<model>/`. Each run outputs for each prompt set:
 
 - `metrics.json` – COCO mAP@[50:95], AP50, AP75, per-class AP
 - `predictions.json` – raw detections
