@@ -21,7 +21,6 @@ ENV/
 .ipynb_checkpoints/
 .profile
 *.ipynb_convert
-*.ipynb_checkpoints/
 hf-download.ipynb
 hf-upload.ipynb
 
@@ -30,9 +29,10 @@ hf-upload.ipynb
 # ===========================
 
 # Data
+data/*
+!data/pseudo_labels/
 data/pseudo_labels/*
-data/zerowaste-f/
-data/zerowaste-s/
+!data/pseudo_labels/.gitkeep
 
 # Pseudo Annotations
 semi_sup/pseudo_annotations/
