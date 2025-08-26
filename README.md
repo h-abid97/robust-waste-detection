@@ -41,7 +41,7 @@ For more details, please refer to our or [arxive paper](). -->
 
 </br>
 
-## Table of Contents
+## :bookmark_tabs: Table of Contents
 - [Repository Structure](#repository-structure)
 - [Installation](#installation)
 - [Dataset Setup](#dataset-setup)
@@ -55,6 +55,7 @@ For more details, please refer to our or [arxive paper](). -->
 
 </br>
 
+<a id="repository-structure"></a>
 ## :file_folder: Repository Structure
 
 ```
@@ -75,6 +76,7 @@ robust-waste-detection/
 
 </br>
 
+<a id="installation"></a>
 ## :wrench: Installation
 #### NOTE: This setup process is only for the fully supervised and semi-supervised experiments. For the zero shot OVOD setup, please refer to [zero_shot_ovod/README.md](zero_shot_ovod/README.md).
 *If you face issues creating the environment, visit https://mmdetection.readthedocs.io/en/latest/get_started.html for help.*
@@ -123,6 +125,7 @@ pip install -r requirements.txt
 
 </br>
 
+<a id="dataset-setup"></a>
 ## :file_cabinet: Dataset Setup
 This project uses the [ZeroWaste](https://github.com/dbash/zerowaste/) dataset, which is publicly available.
 
@@ -153,6 +156,7 @@ With this structure, all configs will run **out of the box**.
 
 </br>
 
+<a id="zero-shot-ovod"></a>
 ## :dart: Zero-Shot OVOD
 ![Optimized Prompt Generation Pipeline](/media/optimized_queries_pipeline.png)
 
@@ -170,6 +174,7 @@ We evaluate state-of-the-art Open-Vocabulary Object Detectors (OVOD) - **Groundi
 
 </br>
 
+<a id="fully-supervised-baselines"></a>
 ## :hammer_and_wrench: Fully Supervised Baselines
 We establish strong **closed-set baselines** on ZeroWaste-f. Models were fine-tuned with COCO-style configs.
 
@@ -230,6 +235,7 @@ Results will be stored directly into `./experiments/`.
 
 </br>
 
+<a id="semi-supervised-learning"></a>
 ## :balance_scale: Semi-Supervised Learning
 ![Ensemble-based Pseudo-labeling Pipeline](/media/pseudo_label_pipeline.png)
 
@@ -324,6 +330,7 @@ Results will be stored directly into `./experiments/`.
 
 </br>
 
+<a id="citation"></a>
 ## :book: Citation
 If you find our work or this repository useful, please consider giving a star :star: and citation.
 
@@ -338,17 +345,20 @@ If you find our work or this repository useful, please consider giving a star :s
 
 </br>
 
+<a id="license"></a>
 ## :scroll: License
 - This repository is released under the MIT License.  
 - Please also respect the license terms of the [ZeroWaste](https://github.com/dbash/zerowaste/) dataset.
 
 </br>
 
+<a id="contact"></a>
 ## :mailbox: Contact 
 Should you have any questions, please create an issue on this repository or contact us at **hassan.abid@mbzuai.ac.ae**
 
 </br>
 
+<a id="acknowledgement"></a>
 ## :pray: Acknowledgement
 We used the following open-source codebases in our work and gratefully acknowledge the authors for releasing them:
 
