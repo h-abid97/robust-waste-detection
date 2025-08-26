@@ -41,6 +41,20 @@ For more details, please refer to our or [arxive paper](). -->
 
 </br>
 
+## Table of Contents
+- [Repository Structure](#repository-structure)
+- [Installation](#installation)
+- [Dataset Setup](#dataset-setup)
+- [Zero-Shot OVOD](#zero-shot-ovod)
+- [Fully Supervised Baselines](#fully-supervised-baselines)
+- [Semi-Supervised Learning](#semi-supervised-learning)
+- [Citation](#citation)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgement](#acknowledgement)
+
+</br>
+
 ## :file_folder: Repository Structure
 
 ```
@@ -109,8 +123,7 @@ pip install -r requirements.txt
 
 </br>
 
- ## :file_cabinet: Dataset Setup
-
+## :file_cabinet: Dataset Setup
 This project uses the [ZeroWaste](https://github.com/dbash/zerowaste/) dataset, which is publicly available.
 
 You will need both:
@@ -157,7 +170,7 @@ We evaluate state-of-the-art Open-Vocabulary Object Detectors (OVOD) - **Groundi
 
 </br>
 
-## :hammer_and_wrench: Fully Fine-Tuned Baselines
+## :hammer_and_wrench: Fully Supervised Baselines
 We establish strong **closed-set baselines** on ZeroWaste-f. Models were fine-tuned with COCO-style configs.
 
 ### :bar_chart: Results (ZeroWaste-f, Test Set)
