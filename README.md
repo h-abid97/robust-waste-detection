@@ -10,7 +10,7 @@
 [![paper](https://img.shields.io/badge/arXiv-Paper-<COLOR>.svg)](/media/bird_whisperer_interspeech2024.pdf)
 [![poster](https://img.shields.io/badge/Presentation-Poster-blue)](/media/bird_whisperer_poster.pdf)
 
-<p align="center"><img src="https://i.imgur.com/waxVImv.png" alt="Image"></p>
+<!-- <p align="center"><img src="https://i.imgur.com/waxVImv.png" alt="Image"></p> -->
 
 <hr />
 
