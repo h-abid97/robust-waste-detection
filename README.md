@@ -35,9 +35,9 @@ For more details, please refer to our or [arxive paper](). -->
 </br>
 
 ## :rocket: Updates
-- **July 25, 2025** : Accepted in [BMVC 2025](https://bmvc2025.bmva.org/) &nbsp;&nbsp; :confetti_ball: :tada:
-- **August 25, 2025** : Released code for paper
 - **August 26, 2025** : Paper is released [arXiv](https://bmvc2025.bmva.org/)
+- **August 25, 2025** : Released code for paper
+- **July 25, 2025** : Accepted in [BMVC 2025](https://bmvc2025.bmva.org/) &nbsp;&nbsp; :confetti_ball: :tada:
 
 </br>
 
