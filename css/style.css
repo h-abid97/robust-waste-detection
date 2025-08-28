@@ -1,0 +1,160 @@
+/* ---------- Design tokens ---------- */
+:root{
+  --page-max: 960px;
+  --radius: 12px;
+  --gap: 16px;
+  --bg: #ffffff;
+  --text: #111827;       /* neutral-900 */
+  --muted: #6b7280;      /* neutral-500 */
+  --line: #e5e7eb;       /* neutral-200 */
+  --card: #fafbfc;
+  --accent: #2563eb;     /* blue-600 */
+  --accent-underline: #dbeafe; /* blue-100 */
+  --code-bg: #f6f8fa;
+}
+
+/* Dark mode (auto) */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0b0e11;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --line:#1f2937;
+    --card:#12161a;
+    --accent:#60a5fa;
+    --accent-underline:#0b1220;
+    --code-bg:#0e141b;
+  }
+}
+
+/* ---------- Layout & typography ---------- */
+html, body { margin:0; padding:0; }
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
+  line-height:1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.wrap{
+  max-width: var(--page-max);
+  margin: 40px auto;
+  padding: 0 16px;
+}
+
+h1{ line-height:1.2; margin:0 0 .25rem; font-weight: 700; }
+h2{ margin: 2rem 0 .75rem; font-weight: 650; }
+p{ margin: 0 0 1rem; }
+
+/* ---------- Meta / authors ---------- */
+.meta{
+  color: var(--muted);
+  margin: .25rem 0 1rem;
+  font-size: .98rem;
+}
+
+/* ---------- Links row ---------- */
+.links a{
+  display:inline-block;
+  margin-right:12px;
+  padding-bottom:2px;
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  color: var(--accent);
+}
+.links a:hover{
+  background: var(--accent-underline);
+  border-bottom-color: transparent;
+}
+
+/* Turn link row into buttons (optional, looks nice) */
+.links a{
+  border:1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  background: transparent;
+}
+.links a:hover{
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 10%, transparent);
+}
+
+/* ---------- Media & figures ---------- */
+img{
+  max-width:100%;
+  height:auto;
+  border-radius: var(--radius);
+  display:block;
+}
+
+/* ---------- Cards / grid ---------- */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--gap);
+}
+.card{
+  background: var(--card);
+  border:1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  transition: transform .1s ease, border-color .1s ease;
+}
+.card:hover{ transform: translateY(-1px); border-color: var(--accent); }
+
+/* ---------- Code / BibTeX ---------- */
+pre{
+  background: var(--code-bg);
+  padding: 12px;
+  border-radius: var(--radius);
+  overflow:auto;
+  border:1px solid var(--line);
+}
+code{ font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+
+/* ---------- Footer ---------- */
+footer{
+  margin: 40px 0 10px;
+  color: var(--muted);
+  font-size: .92rem;
+  border-top: 1px solid var(--line);
+  padding-top: 12px;
+}
+
+/* ---------- Accessibility niceties ---------- */
+:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 520px){
+  .wrap{ margin: 24px auto; }
+  h1{ font-size: 1.6rem; }
+  h2{ font-size: 1.15rem; }
+}
+
+/* ---------- Print (optional, tidy) ---------- */
+@media print{
+  .links, footer { display:none; }
+  .wrap{ max-width: none; }
+}
+
+/* ---------- Copy Bibtex Button ---------- */
+#copy-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--card);
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: var(--text);
+  transition: background .2s, border-color .2s;
+}
+#copy-btn:hover {
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 10%, var(--card));
+}
