@@ -228,22 +228,23 @@ h3 {
   color: var(--muted);
 }
 
-/* ---------- Section headers with centered short divider ---------- */
+/* ---------- Section headers with centered divider ABOVE ---------- */
 h2 {
-  margin: 3rem 0 1.5rem;
-  font-size: 1.5rem;
-  text-align: center;       /* center-align the heading text */
-  position: relative;       /* needed for the ::after pseudo-element */
-  font-weight: 650;
+  margin: 4rem 0 2rem;     /* extra spacing above and below */
+  font-size: 1.75rem;      /* larger font size */
+  text-align: center;      /* center the heading text */
+  font-weight: 700;
+  position: relative;
 }
-h2::after {
+
+h2::before {
   content: "";
   display: block;
-  width: 80px;              /* length of divider line */
-  height: 3px;              /* thickness */
+  width: 80px;             /* length of divider line */
+  height: 3px;             /* thickness */
   background: var(--accent);
-  margin: 0.5rem auto 0;    /* space above, auto centers horizontally */
-  border-radius: 2px;       /* rounded edges for a smoother look */
+  margin: 0 auto 0.75rem;  /* auto centers, with spacing below line */
+  border-radius: 2px;
 }
 
 /* ---------- Motion sensitivity (optional) ---------- */
