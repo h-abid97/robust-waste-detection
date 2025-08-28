@@ -238,3 +238,31 @@ footer{
   font-size: 0.95rem;
   line-height: 1.5;
 }
+
+/* Ensure figure captions are visible */
+figure {
+  margin: 20px 0;
+}
+
+figcaption {
+  display: block;
+  font-size: 0.9rem;
+  color: #374151;   /* darker gray for readability */
+  margin-top: 6px;
+  text-align: center; /* optional: center captions under images */
+  line-height: 1.4;
+}
+
+/* Method pillars list */
+.pillars { 
+  margin: .25rem 0 1rem; 
+  padding-left: 1.25rem; 
+}
+.pillars li { 
+  margin: .35rem 0; 
+  line-height: 1.6; 
+}
+.pillars li::marker { 
+  color: var(--accent); 
+  font-weight: 700; 
+}
