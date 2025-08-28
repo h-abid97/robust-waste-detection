@@ -16,21 +16,11 @@
 }
 
 /* Force light color-scheme (prevents automatic dark inversion on some UAs) */
-html{ color-scheme: light; }
+html { color-scheme: light; }
 
-/* (Optional dark mode block left disabled intentionally) */
-/*
+/* (Dark mode block intentionally disabled)
 @media (prefers-color-scheme: dark){
-  :root{
-    --bg:#0b0e11;
-    --text:#e5e7eb;
-    --muted:#9ca3af;
-    --line:#1f2937;
-    --card:#12161a;
-    --accent:#60a5fa;
-    --accent-underline:#0b1220;
-    --code-bg:#0e141b;
-  }
+  :root{ ... }
 }
 */
 
@@ -43,6 +33,8 @@ body{
   line-height:1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 1.05rem;    /* bump global text size a little */
+  line-height: 1.75;     /* improve readability with extra line spacing */
 }
 
 .wrap{
@@ -52,7 +44,6 @@ body{
 }
 
 h1{ line-height:1.2; margin:0 0 .25rem; font-weight: 700; }
-h2{ margin: 2rem 0 .75rem; font-weight: 650; }
 p{ margin: 0 0 1rem; }
 
 /* ---------- Lists (ensure bullets/numbering show) ---------- */
@@ -63,7 +54,14 @@ li + li { margin-top: .25rem; }
 
 /* ---------- Figures ---------- */
 figure { margin: 20px 0; }
-figcaption { font-size: .9rem; color: var(--muted); margin-top: 6px; }
+figcaption {
+  display: block;
+  font-size: 0.9rem;
+  color: #374151;            /* darker gray for readability */
+  margin-top: 6px;
+  text-align: center;        /* center captions under images */
+  line-height: 1.4;
+}
 
 /* ---------- Meta / authors ---------- */
 .meta{
@@ -85,16 +83,21 @@ figcaption { font-size: .9rem; color: var(--muted); margin-top: 6px; }
   text-decoration: none;
   transition: background .2s, border-color .2s;
 }
-/* Fallback hover background first (works everywhere) */
 .links a:hover{
   border-color: var(--accent);
-  background: #eef2ff; /* light indigo tint as fallback */
+  background: #eef2ff; /* fallback */
 }
-/* If color-mix is supported, use a nicer blend */
 @supports (background: color-mix(in oklab, white 10%, black)){
   .links a:hover{
     background: color-mix(in oklab, var(--accent) 10%, transparent);
   }
+}
+
+/* Keyboard focus for links/buttons */
+.links a:focus-visible,
+#copy-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* ---------- Media & images ---------- */
@@ -139,17 +142,11 @@ footer{
   padding-top: 12px;
 }
 
-/* ---------- Accessibility niceties ---------- */
-:focus-visible{
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
 /* ---------- Small screens ---------- */
 @media (max-width: 520px){
   .wrap{ margin: 24px auto; }
   h1{ font-size: 1.6rem; }
-  h2{ font-size: 1.15rem; }
+  /* h2 is set later */
 }
 
 /* ---------- Print (optional, tidy) ---------- */
@@ -170,12 +167,10 @@ footer{
   color: var(--text);
   transition: background .2s, border-color .2s, transform .02s;
 }
-/* Fallback hover background first */
 #copy-btn:hover {
   border-color: var(--accent);
   background: #eef2ff;
 }
-/* Prefer color-mix when available */
 @supports (background: color-mix(in oklab, white 10%, black)){
   #copy-btn:hover {
     background: color-mix(in oklab, var(--accent) 10%, var(--card));
@@ -190,70 +185,29 @@ footer{
   gap: 20px;
   margin: 20px 0;
 }
-
 .highlight-card {
   border-radius: 14px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
   transition: transform 0.2s, box-shadow 0.2s, border-color .2s;
   color: #1f2937; /* dark text for readability */
-  border: 1px solid transparent; /* ensure even layout when not colored */
+  border: 1px solid transparent;
 }
-
-/* Hover pop */
 .highlight-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   border-color: #93c5fd;
 }
-
 /* Color themes per card */
-.highlight-card:nth-child(1) {
-  background: #e0f2fe; /* light blue */
-  border-color: #bae6fd;
-}
-.highlight-card:nth-child(2) {
-  background: #ecfdf5; /* light green */
-  border-color: #bbf7d0;
-}
-.highlight-card:nth-child(3) {
-  background: #fef3c7; /* light yellow */
-  border-color: #fde68a;
-}
-.highlight-card:nth-child(4) {
-  background: #fef2f2; /* light red/pink */
-  border-color: #fecaca;
-}
+.highlight-card:nth-child(1) { background: #e0f2fe; border-color: #bae6fd; }
+.highlight-card:nth-child(2) { background: #ecfdf5; border-color: #bbf7d0; }
+.highlight-card:nth-child(3) { background: #fef3c7; border-color: #fde68a; }
+.highlight-card:nth-child(4) { background: #fef2f2; border-color: #fecaca; }
+/* Titles & text */
+.highlight-card h3 { margin-top: 0; font-size: 1.2rem; color: #111827; }
+.highlight-card p  { margin: 0; font-size: 0.95rem; line-height: 1.5; }
 
-/* Titles */
-.highlight-card h3 {
-  margin-top: 0;
-  font-size: 1.2rem;
-  color: #111827; /* keep headings neutral/dark */
-}
-
-/* Text */
-.highlight-card p {
-  margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
-
-/* Ensure figure captions are visible */
-figure {
-  margin: 20px 0;
-}
-
-figcaption {
-  display: block;
-  font-size: 0.9rem;
-  color: #374151;   /* darker gray for readability */
-  margin-top: 6px;
-  text-align: center; /* optional: center captions under images */
-  line-height: 1.4;
-}
-
-/* Method pillars list */
+/* ---------- Method pillars list ---------- */
 .pillars { 
   margin: .25rem 0 1rem; 
   padding-left: 1.25rem; 
@@ -267,17 +221,11 @@ figcaption {
   font-weight: 700; 
 }
 
-/* Optional: lighter subtitle style for h3 */
+/* ---------- Subtitles ---------- */
 h3 {
   margin: 2rem 0 0.75rem;
   font-size: 1.2rem;
   color: var(--muted);
-}
-
-/* ---------- Body text ---------- */
-body {
-  font-size: 1.05rem;  /* bump global text size a little */
-  line-height: 1.75;   /* improve readability with extra line spacing */
 }
 
 /* ---------- Section headers with centered short divider ---------- */
@@ -288,7 +236,6 @@ h2 {
   position: relative;       /* needed for the ::after pseudo-element */
   font-weight: 650;
 }
-
 h2::after {
   content: "";
   display: block;
@@ -297,4 +244,10 @@ h2::after {
   background: var(--accent);
   margin: 0.5rem auto 0;    /* space above, auto centers horizontally */
   border-radius: 2px;       /* rounded edges for a smoother look */
+}
+
+/* ---------- Motion sensitivity (optional) ---------- */
+@media (prefers-reduced-motion: reduce){
+  .card, .highlight-card { transition: none; }
+  .card:hover, .highlight-card:hover { transform: none; box-shadow: none; }
 }
