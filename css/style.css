@@ -30,11 +30,10 @@ body{
   background:var(--bg);
   color:var(--text);
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, "Helvetica Neue", Arial, sans-serif;
-  line-height:1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 1.05rem;    /* bump global text size a little */
-  line-height: 1.75;     /* improve readability with extra line spacing */
+  font-size: 1.05rem;   /* bump global text size a little */
+  line-height: 1.75;    /* comfortable line height */
 }
 
 .wrap{
@@ -71,10 +70,15 @@ figcaption {
 }
 .meta sup { margin-left: 2px; }
 
-/* ---------- Links row (single, consolidated definition) ---------- */
+/* ---------- Links row (clean spacing & hover) ---------- */
+.links{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: .5rem 0 1.25rem;
+}
 .links a{
   display:inline-block;
-  margin-right:12px;
   border:1px solid var(--line);
   border-radius: 999px;
   padding: 6px 12px;
@@ -87,9 +91,10 @@ figcaption {
   border-color: var(--accent);
   background: #eef2ff; /* fallback */
 }
-@supports (background: color-mix(in oklab, white 10%, black)){
+/* Prefer color-mix when supported (use sRGB for wider support) */
+@supports (background: color-mix(in srgb, white 10%, black)){
   .links a:hover{
-    background: color-mix(in oklab, var(--accent) 10%, transparent);
+    background: color-mix(in srgb, var(--accent) 12%, var(--card));
   }
 }
 
@@ -146,7 +151,7 @@ footer{
 @media (max-width: 520px){
   .wrap{ margin: 24px auto; }
   h1{ font-size: 1.6rem; }
-  /* h2 is set later */
+  h2{ font-size: 1.4rem; margin: 3rem 0 1.5rem; } /* mobile-friendly h2 */
 }
 
 /* ---------- Print (optional, tidy) ---------- */
@@ -169,11 +174,11 @@ footer{
 }
 #copy-btn:hover {
   border-color: var(--accent);
-  background: #eef2ff;
+  background: #eef2ff; /* fallback */
 }
-@supports (background: color-mix(in oklab, white 10%, black)){
+@supports (background: color-mix(in srgb, white 10%, black)){
   #copy-btn:hover {
-    background: color-mix(in oklab, var(--accent) 10%, var(--card));
+    background: color-mix(in srgb, var(--accent) 12%, var(--card));
   }
 }
 #copy-btn:active { transform: translateY(1px); }
@@ -228,23 +233,30 @@ h3 {
   color: var(--muted);
 }
 
-/* ---------- Section headers with centered divider ABOVE ---------- */
-h2 {
-  margin: 4rem 0 2rem;     /* extra spacing above and below */
-  font-size: 1.75rem;      /* larger font size */
-  text-align: center;      /* center the heading text */
-  font-weight: 700;
+/* ---------- Section spacing & divider logic ---------- */
+section {
+  margin: 4rem 0;            /* space around sections */
   position: relative;
 }
 
-h2::before {
+/* Short centered divider only BETWEEN sections */
+section + section::before {
   content: "";
   display: block;
-  width: 80px;             /* length of divider line */
-  height: 3px;             /* thickness */
+  width: 120px;              /* short line */
+  height: 3px;
   background: var(--accent);
-  margin: 0 auto 0.75rem;  /* auto centers, with spacing below line */
+  margin: 0 auto 3rem;       /* centered, with spacing below */
   border-radius: 2px;
+}
+
+/* Left-aligned, larger h2 with generous spacing */
+h2 {
+  margin: 4rem 0 2rem;       /* extra spacing above/below */
+  font-size: 1.75rem;        /* larger font size */
+  text-align: left;          /* left-aligned headings */
+  font-weight: 700;
+  position: relative;
 }
 
 /* ---------- Motion sensitivity (optional) ---------- */
