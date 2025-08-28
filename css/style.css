@@ -266,3 +266,35 @@ figcaption {
   color: var(--accent); 
   font-weight: 700; 
 }
+
+/* Optional: lighter subtitle style for h3 */
+h3 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.2rem;
+  color: var(--muted);
+}
+
+/* ---------- Body text ---------- */
+body {
+  font-size: 1.05rem;  /* bump global text size a little */
+  line-height: 1.75;   /* improve readability with extra line spacing */
+}
+
+/* ---------- Section headers with centered short divider ---------- */
+h2 {
+  margin: 3rem 0 1.5rem;
+  font-size: 1.5rem;
+  text-align: center;       /* center-align the heading text */
+  position: relative;       /* needed for the ::after pseudo-element */
+  font-weight: 650;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  width: 80px;              /* length of divider line */
+  height: 3px;              /* thickness */
+  background: var(--accent);
+  margin: 0.5rem auto 0;    /* space above, auto centers horizontally */
+  border-radius: 2px;       /* rounded edges for a smoother look */
+}
