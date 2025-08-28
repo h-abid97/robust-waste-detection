@@ -1,170 +1,293 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Robust and Label-Efficient Deep Waste Detection — BMVC 2025</title>
-
-  <meta name="description" content="BMVC 2025 project page: Robust and Label-Efficient Deep Waste Detection — zero-shot OVOD benchmarks, fine-tuned transformer baselines, and ensemble-based semi-supervised learning for industrial waste detection." />
-  <meta property="og:title" content="Robust and Label-Efficient Deep Waste Detection — BMVC 2025" />
-  <meta property="og:description" content="ZeroWaste OVOD benchmarks, 51.6 mAP fine-tuned baseline, and soft ensemble pseudo-labeling that surpasses fully supervised training." />
-  <meta property="og:image" content="https://h-abid97.github.io/robust-waste-detection/assets/teaser.png" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="BMVC 2025 project page for Robust and Label-Efficient Deep Waste Detection: zero-shot OVOD benchmarks, 51.6 mAP fine-tuned baselines, and ensemble-based semi-supervised learning with soft pseudo-labels on the ZeroWaste dataset." />
+  <meta name="keywords" content="ZeroWaste, waste detection, open-vocabulary detection, semi-supervised learning, pseudo-labeling, Grounding DINO, Co-DETR, DETA, BMVC 2025" />
+  <link rel="canonical" href="https://h-abid97.github.io/robust-waste-detection/" />
   <meta name="theme-color" content="#ffffff" />
-  <link rel="stylesheet" href="css/style.css?v=2025-08-28-2" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Robust and Label-Efficient Deep Waste Detection — BMVC 2025" />
+  <meta property="og:description" content="Zero-shot OVOD on ZeroWaste, 51.6 mAP fine-tuned baselines, and soft ensemble pseudo-labels that surpass fully supervised training." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://h-abid97.github.io/robust-waste-detection/" />
+  <meta property="og:image" content="https://h-abid97.github.io/robust-waste-detection/static/images/teaser.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Robust and Label-Efficient Deep Waste Detection — BMVC 2025" />
+  <meta name="twitter:description" content="Zero-shot OVOD on ZeroWaste, 51.6 mAP fine-tuned baselines, and soft ensemble pseudo-labels that surpass fully supervised training." />
+  <meta name="twitter:image" content="https://h-abid97.github.io/robust-waste-detection/static/images/teaser.png" />
+
+  <!-- Fonts & CSS -->
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <!-- Optional: small table tweaks (keep if you’ll add tables later) -->
+  <style>
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #000; padding: 10px; text-align: center; }
+    th { background-color: #f2f2f2; }
+    .dataset-names { border-right:1px solid #dbdbdb; text-align: left; }
+    .space_row { height: 5px; border: none; }
+    #table-results { width: 100%; border-collapse: collapse; overflow-x: auto; }
+    #table-results th { font-size: 10px; font-weight: 700; }
+    #table-results td { font-size: 12px; }
+    #table-results th:nth-child(1), #table-results td:nth-child(1) { width: 140px; }
+    #table-results th:nth-child(2), #table-results td:nth-child(2) { width: 12%; }
+  </style>
+
+  <!-- Google Analytics (optional) -->
+  <!--
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-257CHSRQ00"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-257CHSRQ00');
+  </script>
+  -->
 </head>
+
 <body>
-  <main class="wrap" role="main">
-    <h1>Robust and Label-Efficient Deep Waste Detection</h1>
-    <div class="meta">
-      Hassan Abid<sup>1</sup>, Khan Muhammad<sup>2</sup>, Muhammad Haris Khan<sup>1</sup><br>
-      <em>BMVC 2025</em><br>
-      <sup>1</sup> Mohamed Bin Zayed University of Artificial Intelligence (MBZUAI), Abu Dhabi, UAE<br>
-      <sup>2</sup> Sungkyunkwan University, Seoul, South Korea
-    </div>
 
-    <p class="links">
-      <a href="https://arxiv.org/abs/2508.18799" target="_blank" rel="noopener noreferrer">arXiv</a>
-      <a href="https://github.com/h-abid97/robust-waste-detection" target="_blank" rel="noopener noreferrer">Code (GitHub)</a>
-      <a href="bib/citation.bib">Citation (BibTeX)</a>
-    </p>
+  <!-- HERO / TITLE -->
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-2 publication-title">
+              Robust and Label-Efficient Deep Waste Detection
+            </h1>
 
-    <!-- SECTION: Abstract -->
-    <section aria-labelledby="abs">
-      <h2 id="abs">Abstract</h2>
-      <p>
-        Effective waste sorting is critical for sustainable recycling, yet AI research in this domain lags behind commercial systems due to limited datasets and reliance on outdated detectors. 
-        We advance AI-driven waste detection by <strong>benchmarking open-vocabulary detectors</strong>, <strong>establishing strong supervised baselines</strong>, and <strong>proposing a robust semi-supervised framework</strong>. 
-        Using the <em>ZeroWaste</em> dataset, we demonstrate that:
-        (1) LLM-optimized prompts improve zero-shot detection, 
-        (2) fine-tuned transformer-based detectors set new baselines of <strong>51.6 mAP</strong>, and 
-        (3) ensemble-based soft pseudo-labeling produces high-quality annotations for 6,065 unlabeled images, boosting downstream detectors beyond fully supervised training.
-      </p>
-    </section>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Hassan Abid<sup>1</sup>,</span>
+              <span class="author-block">Khan Muhammad<sup>2</sup>,</span>
+              <span class="author-block">Muhammad Haris Khan<sup>1</sup></span>
+            </div>
 
-    <!-- SECTION: Highlights -->
-    <section aria-labelledby="hi">
-      <h2 id="hi">Highlights</h2>
-      <div class="highlights-grid" aria-label="Key contributions and results">
-        <div class="highlight-card">
-          <h3>Zero-shot OVOD</h3>
-          <p>Class-only prompts underperform, but <strong>LLM-optimized prompts</strong> boost OWLv2 from <strong>7.3 → 13.5 mAP</strong>.</p>
-        </div>
-        <div class="highlight-card">
-          <h3>Fine-tuned Baselines</h3>
-          <p>Co-DETR, DETA, and Grounding DINO (Swin-B) achieve <strong>51.6 mAP</strong>, more than <strong>2× stronger</strong> than CNN baselines.</p>
-        </div>
-        <div class="highlight-card">
-          <h3>Semi-Supervised</h3>
-          <p>Ensemble-based <em>soft</em> pseudo-labels push Grounding DINO (Swin-B) to <strong>54.3 mAP</strong>.</p>
-        </div>
-        <div class="highlight-card">
-          <h3>Final Dataset</h3>
-          <p>Released <strong>33,075 pseudo-annotations</strong> for ZeroWaste-s, improving YOLO11 (+6.3 mAP) and RT-DETR (+4.3 mAP).</p>
+            <div class="is-size-6 publication-authors" style="margin-top: 6px;">
+              <span class="author-block"><sup>1</sup> Mohamed Bin Zayed University of Artificial Intelligence (MBZUAI), Abu Dhabi, UAE</span><br/>
+              <span class="author-block"><sup>2</sup> Sungkyunkwan University, Seoul, South Korea</span><br/>
+              <span class="author-block"><em>BMVC 2025</em></span>
+            </div>
+
+            <!-- LINKS -->
+            <div class="column has-text-centered" style="margin-top: 12px;">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2508.18799" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                    <span class="icon"><i class="ai ai-arxiv"></i></span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="https://github.com/h-abid97/robust-waste-detection" class="external-link button is-normal is-rounded is-dark" target="_blank" rel="noopener noreferrer">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+                </span>
+
+                <span class="link-block">
+                  <a href="#bibtex" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="ai ai-obp"></i></span>
+                    <span>BibTeX</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+            <!-- /LINKS -->
+
+          </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECTION: Method Overview -->
-    <section aria-labelledby="mo">
-      <h2 id="mo">Method Overview</h2>
-      <p>Our framework combines three pillars:</p>
-      <ol class="pillars">
-        <li><strong>Zero-shot OVOD benchmarking</strong> on industrial waste data.</li>
-        <li><strong>Supervised fine-tuning</strong> of modern detectors, setting new baselines (51.6 mAP).</li>
-        <li><strong>Ensemble-based pseudo-labeling</strong> to exploit unlabeled data; fuses predictions via Weighted Box Fusion and adjusts confidence using spatial consistency and inter-model agreement.</li>
-      </ol>
-    </section>
+  <!-- ABSTRACT -->
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop has-text-centered">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p align="justify">
+            Effective waste sorting is critical for sustainable recycling, yet AI research in this domain lags behind commercial systems due to limited datasets and reliance on legacy detectors. We advance AI-driven waste detection by benchmarking open-vocabulary object detectors (OVOD), establishing strong supervised baselines, and introducing an ensemble-based semi-supervised learning framework on the real-world <em>ZeroWaste</em> dataset. We show that class-only prompts perform poorly in zero-shot OVOD, whereas LLM-optimized prompts substantially improve accuracy. Fine-tuning modern transformer-based detectors yields new baselines of <b>51.6 mAP</b>, more than doubling prior CNN results. Finally, we fuse model predictions to create <em>soft</em> pseudo-labels that improve semi-supervised training; applied to the unlabeled ZeroWaste-s subset, this produces high-quality annotations that boost downstream detectors beyond fully supervised training.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- SECTION: Zero-Shot OVOD -->
-    <section aria-labelledby="zs">
-      <h2 id="zs">Zero-Shot OVOD Evaluation</h2>
-      <figure>
-        <img src="assets/optimized_queries_pipeline.png" alt="Iterative prompt optimization pipeline used to enrich class-level queries and evaluate OVOD models." />
-        <figcaption>Prompt optimization pipeline for zero-shot OVOD on ZeroWaste.</figcaption>
-      </figure>
-      <p>
-        Grounding DINO, OWLv2, and YOLO-World show weak performance on ZeroWaste with class-only prompts (≤7.3 mAP). 
-        Using GPT-4o optimized prompts substantially boosts performance (OWLv2: +6.2 mAP).
-      </p>
-      <figure>
-        <img src="assets/zs_class_only_bm.png" alt="Overall zero-shot mAP using class-only prompts on ZeroWaste-f test set." />
-        <figcaption>Zero-shot (class-only prompts): overall mAP across models.</figcaption>
-      </figure>
-      <figure>
-        <img src="assets/zs_class_only_v_optimized.png" alt="Comparison of class-only vs. optimized prompts showing substantial mAP improvements." />
-        <figcaption>Class-only vs. optimized prompts: mAP improvements.</figcaption>
-      </figure>
-    </section>
+  <!-- HIGHLIGHTS -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Highlights</h2>
+      <div class="columns is-multiline">
+        <div class="column is-half">
+          <div class="box content">
+            <p><b>Zero-shot OVOD:</b> Class-only prompts underperform; LLM-optimized prompts improve OWLv2 from <b>7.3 → 13.5 mAP</b>.</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="box content">
+            <p><b>Fine-tuned baselines:</b> Co-DETR (Swin-L), DETA (Swin-L), and Grounding DINO (Swin-B) each reach <b>51.6 mAP</b>, >2× stronger than prior CNN baselines (e.g., TridentNet 24.2).</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="box content">
+            <p><b>Semi-supervised:</b> Ensemble-based <em>soft</em> pseudo-labels push Grounding DINO (Swin-B) to <b>54.3 mAP</b> with consistent per-class gains.</p>
+          </div>
+        </div>
+        <div class="column is-half">
+          <div class="box content">
+            <p><b>Final pseudo-annotations:</b> <b>33,075</b> boxes over <b>6,065</b> images (ZeroWaste-s); training on these improves YOLO11 (+6.3 mAP) and RT-DETR (+4.3 mAP).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- SECTION: Fine-Tuned Baselines -->
-    <section aria-labelledby="ft">
-      <h2 id="ft">Fine-Tuned Baselines</h2>
-      <p>
-        Transformer-based detectors dramatically outperform CNN baselines. 
-        Co-DETR (Swin-L), DETA (Swin-L), and Grounding DINO (Swin-B) each achieve <strong>51.6 mAP</strong>, surpassing TridentNet’s 24.2 mAP.
-      </p>
-      <figure>
-        <img src="assets/sft_benchmark.png" alt="Fine-tuned baselines: mAP for Co-DETR, DETA, Grounding DINO compared to CNN baselines." />
-        <figcaption>Fine-tuned transformer baselines vs. prior CNN baselines.</figcaption>
+  <!-- METHOD OVERVIEW -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Method Overview</h2>
+      <div class="content has-text-justified">
+        <p>
+          Our framework integrates three components: (1) zero-shot benchmarking of OVOD models on industrial waste data; (2) supervised fine-tuning of modern detectors to establish strong baselines; and (3) ensemble-based pseudo-labeling on unlabeled data. We fuse predictions across models via Weighted Box Fusion and modulate confidence using spatial consistency and inter-model agreement to obtain <em>soft</em> pseudo-labels for semi-supervised training.
+        </p>
+      </div>
+      <figure class="image">
+        <img src="./static/images/pseudo_label_pipeline.png" alt="Ensemble-based soft pseudo-labeling pipeline (WBF + consensus weighting).">
+        <figcaption class="has-text-centered">Ensemble-based soft pseudo-labeling pipeline.</figcaption>
       </figure>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECTION: Semi-Supervised Learning -->
-    <section aria-labelledby="ssl">
-      <h2 id="ssl">Semi-Supervised Learning</h2>
-      <figure>
-        <img src="assets/pseudo_label_pipeline.png" alt="Soft labeling pipeline: fusing model predictions via WBF and adjusting confidence by spatial consistency and model agreement." />
-        <figcaption>Ensemble-based soft pseudo-labeling pipeline.</figcaption>
+  <!-- ZERO-SHOT OVOD -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Zero-Shot OVOD</h2>
+      <div class="content has-text-justified">
+        <p>
+          We evaluate Grounding DINO, OWLv2, and YOLO-World on ZeroWaste. With class-only prompts, overall mAP is low (≤ 7.3). Iterative prompt optimization with an LLM notably improves zero-shot performance (e.g., OWLv2 +6.2 mAP), while remaining below supervised baselines in this domain.
+        </p>
+      </div>
+      <figure class="image">
+        <img src="./static/images/optimized_queries_pipeline.png" alt="Iterative prompt optimization pipeline for OVOD.">
+        <figcaption class="has-text-centered">Prompt optimization pipeline for zero-shot OVOD.</figcaption>
       </figure>
-      <p>
-        Our soft ensemble pseudo-labeling strategy significantly improves detection. 
-        Grounding DINO (Swin-B) rises from 51.6 → 54.3 mAP, with consistent per-class gains including rare categories like <em>metal</em>.
-      </p>
-      <figure>
-        <img src="assets/semi_sup_results.png" alt="Semi-supervised results: improvements in mAP and per-class AP using soft ensemble pseudo-labels." />
-        <figcaption>Semi-supervised learning improvements (Swin-T, Swin-B).</figcaption>
-      </figure>
-    </section>
+      <div class="columns">
+        <div class="column">
+          <figure class="image">
+            <img src="./static/images/zs_class_only_bm.png" alt="Zero-shot results with class-only prompts.">
+            <figcaption class="has-text-centered">Zero-shot (class-only prompts): overall mAP across models.</figcaption>
+          </figure>
+        </div>
+        <div class="column">
+          <figure class="image">
+            <img src="./static/images/zs_class_only_v_optimized.png" alt="Class-only vs optimized prompts comparison.">
+            <figcaption class="has-text-centered">Class-only vs optimized prompts: mAP improvements.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- SECTION: Dataset -->
-    <section aria-labelledby="ds">
-      <h2 id="ds">Dataset & Settings</h2>
-      <p>
-        We adopt the <strong>ZeroWaste</strong> dataset collected from an industrial Material Recovery Facility:
-      </p>
-      <ul>
-        <li><strong>ZeroWaste-f:</strong> 4,503 labeled images with bounding boxes for cardboard, soft plastic, rigid plastic, and metal.</li>
-        <li><strong>ZeroWaste-s:</strong> 6,212 unlabeled images for semi-supervised learning.</li>
-        <li><strong>Challenges:</strong> high clutter, occlusion, deformation, and severe class imbalance.</li>
-      </ul>
-      <figure>
-        <img src="assets/zerowaste-f.png" alt="ZeroWaste dataset examples: annotated ZeroWaste-f and unlabeled ZeroWaste-s frames." />
-        <figcaption>ZeroWaste dataset examples (ZeroWaste-f and ZeroWaste-s).</figcaption>
+  <!-- FINE-TUNED BASELINES -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Fine-Tuned Baselines</h2>
+      <div class="content has-text-justified">
+        <p>
+          Fine-tuning transformer-based detectors on ZeroWaste-f yields substantial gains over legacy CNN baselines. Co-DETR (Swin-L), DETA (Swin-L), and Grounding DINO (Swin-B) each achieve <b>51.6 mAP</b>, surpassing TridentNet (24.2).
+        </p>
+      </div>
+      <figure class="image">
+        <img src="./static/images/sft_benchmark.png" alt="Supervised fine-tuning baselines on ZeroWaste-f.">
+        <figcaption class="has-text-centered">Supervised fine-tuning baselines on ZeroWaste-f.</figcaption>
       </figure>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECTION: Final Pseudo-Annotations -->
-    <section aria-labelledby="fpa">
-      <h2 id="fpa">Final Pseudo-Annotations</h2>
-      <p>
-        Our ensemble-generated pseudo-labels for ZeroWaste-s yield <strong>33,075 bounding boxes</strong> across 6,065 images. 
-        Training detectors solely on these annotations provides consistent gains:
-      </p>
-      <ul>
-        <li>YOLO11 (Large): +6.3 mAP</li>
-        <li>RT-DETR (Large): +4.3 mAP</li>
-      </ul>
-      <figure>
-        <img src="assets/final_pseudo_annotations.png" alt="Distribution and examples of the final pseudo-annotations produced for ZeroWaste-s." />
-        <figcaption>Final pseudo-annotations for ZeroWaste-s.</figcaption>
+  <!-- SEMI-SUPERVISED LEARNING -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Semi-Supervised Learning</h2>
+      <div class="content has-text-justified">
+        <p>
+          Using ensemble-generated <em>soft</em> pseudo-labels for ZeroWaste-s improves Grounding DINO from <b>51.6 → 54.3 mAP</b> (Swin-B), with consistent per-class AP gains including rare categories such as <em>metal</em>.
+        </p>
+      </div>
+      <figure class="image">
+        <img src="./static/images/semi_sup_results.png" alt="Semi-supervised results (soft ensemble pseudo-labels).">
+        <figcaption class="has-text-centered">Semi-supervised learning improvements (Swin-T, Swin-B).</figcaption>
       </figure>
-    </section>
+    </div>
+  </section>
 
-    <!-- SECTION: Citation -->
-    <section aria-labelledby="ct">
-      <h2 id="ct">Citation</h2>
-      <pre id="bibtex"><code>@misc{abid2025robustlabelefficientdeepwaste,
+  <!-- DATASET -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Dataset & Settings</h2>
+      <div class="content has-text-justified">
+        <ul>
+          <li><b>ZeroWaste-f:</b> 4,503 labeled images with boxes for <em>cardboard</em>, <em>soft plastic</em>, <em>rigid plastic</em>, <em>metal</em>.</li>
+          <li><b>ZeroWaste-s:</b> 6,212 unlabeled images for semi-supervised learning.</li>
+          <li><b>Challenges:</b> high clutter, occlusion, deformation, and severe class imbalance.</li>
+        </ul>
+      </div>
+      <figure class="image">
+        <img src="./static/images/zerowaste-f.png" alt="ZeroWaste dataset examples (f and s).">
+        <figcaption class="has-text-centered">ZeroWaste dataset examples (ZeroWaste-f and ZeroWaste-s).</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- FINAL PSEUDO-ANNOTATIONS -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Final Pseudo-Annotations</h2>
+      <div class="content has-text-justified">
+        <p>
+          Our final set includes <b>33,075</b> boxes across <b>6,065</b> images (ZeroWaste-s). Models trained solely on these annotations outperform their supervised counterparts on ZeroWaste-f test: YOLO11 (+6.3 mAP) and RT-DETR (+4.3 mAP).
+        </p>
+      </div>
+      <figure class="image">
+        <img src="./static/images/final_pseudo_annotations.png" alt="Distribution and examples of final pseudo-annotations.">
+        <figcaption class="has-text-centered">Final pseudo-annotations for ZeroWaste-s.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- CONCLUSION -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 class="title is-3 has-text-centered">Conclusion</h2>
+      <div class="content has-text-justified">
+        <p>
+          We benchmark zero-shot OVOD on real-world waste data, establish strong supervised baselines via fine-tuning, and introduce an ensemble-based semi-supervised framework that produces high-quality pseudo-annotations. While zero-shot models benefit from prompt optimization, task-specific fine-tuning and consensus-driven soft pseudo-labels deliver the largest gains, setting a scalable path for AI-assisted waste recovery in industrial MRFs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BIBTEX -->
+  <section class="section">
+    <div class="container is-max-desktop">
+      <h2 id="bibtex" class="title is-4 has-text-left">BibTeX</h2>
+      <div class="content">
+        <pre><code>@misc{abid2025robustlabelefficientdeepwaste,
   title         = {Robust and Label-Efficient Deep Waste Detection},
   author        = {Hassan Abid and Khan Muhammad and Muhammad Haris Khan},
   year          = {2025},
@@ -173,51 +296,17 @@
   primaryClass  = {cs.CV},
   url           = {https://arxiv.org/abs/2508.18799}
 }</code></pre>
-
-      <div style="margin-top:8px;">
-        <button id="copy-btn" aria-label="Copy BibTeX to clipboard">Copy BibTeX</button>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer>© 2025 Hassan Abid, Khan Muhammad, Muhammad Haris Khan</footer>
-  </main>
+  <footer style="background-color:#555555; color:white; padding:20px; text-align:center;">
+    <div style="color:#f0f0f0; padding:10px;">
+      Website adapted from this <a href="https://mingukkang.github.io/GigaGAN/" style="color:#add8e6;">source code</a>.
+    </div>
+  </footer>
 
-  <script>
-    (function(){
-      const copyBtn = document.getElementById("copy-btn");
-      const pre = document.getElementById("bibtex");
-      if (!copyBtn || !pre) return;
-
-      function copyFallback(text) {
-        const ta = document.createElement("textarea");
-        ta.value = text;
-        ta.setAttribute("readonly", "");
-        ta.style.position = "absolute";
-        ta.style.left = "-9999px";
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand("copy"); } catch(e) {}
-        document.body.removeChild(ta);
-      }
-
-      copyBtn.addEventListener("click", () => {
-        const text = pre.innerText.trim();
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(() => {
-            copyBtn.textContent = "Copied!";
-            setTimeout(() => copyBtn.textContent = "Copy BibTeX", 2000);
-          }).catch(() => {
-            copyFallback(text);
-            copyBtn.textContent = "Copied!";
-            setTimeout(() => copyBtn.textContent = "Copy BibTeX", 2000);
-          });
-        } else {
-          copyFallback(text);
-          copyBtn.textContent = "Copied!";
-          setTimeout(() => copyBtn.textContent = "Copy BibTeX", 2000);
-        }
-      });
-    })();
-  </script>
+  <!-- Minimal JS: only what you actually use -->
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
 </body>
 </html>
