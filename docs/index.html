@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Robust and Label-Efficient Deep Waste Detection — BMVC 2025</title>
+  <meta name="description" content="BMVC 2025 project page: Robust and Label-Efficient Deep Waste Detection — zero-shot OVOD benchmarks, fine-tuned transformer baselines, and ensemble-based semi-supervised learning for industrial waste detection." />
+  <meta property="og:title" content="Robust and Label-Efficient Deep Waste Detection — BMVC 2025" />
+  <meta property="og:description" content="ZeroWaste OVOD benchmarks, 51.6 mAP fine-tuned baseline, and soft ensemble pseudo-labeling that surpasses fully supervised training." />
+  <meta property="og:image" content="https://h-abid97.github.io/robust-waste-detection/assets/teaser.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="wrap">
+    <h1>Robust and Label-Efficient Deep Waste Detection</h1>
+    <div class="meta">
+      Hassan Abid<sup>1†</sup>, Khan Muhammad<sup>2†</sup>, Muhammad Haris Khan<sup>1</sup><br>
+      <em>BMVC 2025</em><br>
+      <sup>1</sup> Mohamed Bin Zayed University of Artificial Intelligence (MBZUAI), Abu Dhabi, UAE<br>
+      <sup>2</sup> Sungkyunkwan University, Seoul, South Korea
+    </div>
+
+    <p class="links">
+      <a href="https://arxiv.org/abs/2508.18799" target="_blank">arXiv</a>
+      <a href="https://github.com/h-abid97/robust-waste-detection" target="_blank">Code (GitHub)</a>
+      <a href="bib/citation.bib">Citation (BibTeX)</a>
+    </p>
+
+    <h2>Teaser</h2>
+    <img src="assets/teaser.png" alt="Teaser figure from the BMVC 2025 paper on robust and label-efficient deep waste detection">
+
+    <h2>Abstract</h2>
+    <p>
+      Effective waste sorting is critical for sustainable recycling, yet AI research in this domain continues to lag behind commercial systems due to limited datasets and reliance on legacy object detectors. In this work, we advance AI-driven waste detection by establishing strong baselines and introducing an ensemble-based semi-supervised learning framework. We first benchmark state-of-the-art Open-Vocabulary Object Detection (OVOD) models on the real-world ZeroWaste dataset, demonstrating that while class-only prompts perform poorly, LLM-optimized prompts significantly enhance zero-shot accuracy. Next, to address domain-specific limitations, we fine-tune modern transformer-based detectors, achieving a new baseline of 51.6 mAP. We then propose a soft pseudo-labeling strategy that fuses ensemble predictions using spatial and consensus-aware weighting, enabling robust semi-supervised training. Applied to the unlabeled ZeroWaste-s subset, our pseudo-annotations achieve performance gains that surpass fully supervised training, underscoring the effectiveness of scalable annotation pipelines. Our work contributes to the research community by establishing rigorous baselines, introducing a robust ensemble-based pseudo-labeling pipeline, generating high-quality annotations for the unlabeled ZeroWaste-s subset, and systematically evaluating OVOD models under real-world waste sorting conditions.
+    </p>
+
+    <h2>Key Highlights (from the paper)</h2>
+    <div class="grid">
+      <div class="card">
+        <strong>Zero-shot OVOD baseline:</strong>
+        Benchmarked Grounding DINO, OWLv2, and YOLO-World on ZeroWaste with class-only prompts (low mAP), then improved via LLM-optimized prompts (e.g., OWLv2: 7.3 → 13.5 mAP).
+      </div>
+      <div class="card">
+        <strong>Fine-tuned baselines:</strong>
+        Modern detectors (e.g., Co-DETR (Swin-L), DETA (Swin-L), Grounding DINO (Swin-B)) achieve <strong>51.6 mAP</strong>, more than doubling prior CNN baselines.
+      </div>
+      <div class="card">
+        <strong>Semi-supervised learning:</strong>
+        Ensemble-based <em>soft</em> pseudo-labels boost Grounding DINO to <strong>49.3 mAP (Swin-T)</strong> and <strong>54.3 mAP (Swin-B)</strong> on ZeroWaste-f.
+      </div>
+      <div class="card">
+        <strong>Final pseudo-annotations:</strong>
+        <em>ZeroWaste-s</em> labeled with <strong>33,075</strong> boxes across <strong>6,065</strong> images; improves training of YOLO11 (+6.3 mAP) and RT-DETR (+4.3 mAP).
+      </div>
+    </div>
+
+    <h2>Method Overview</h2>
+    <img src="assets/method.png" alt="Overview of the proposed ensemble-based soft pseudo-labeling pipeline for waste detection">
+
+    <h2>Results</h2>
+    <img src="assets/results.png" alt="Quantitative and qualitative results from the BMVC 2025 paper on waste detection">
+
+    <h2>Dataset & Setting</h2>
+    <ul>
+      <li><strong>Dataset:</strong> ZeroWaste (industrial MRF imagery; ZeroWaste-f labeled, ZeroWaste-s unlabeled).</li>
+      <li><strong>OVOD models:</strong> Grounding DINO, OWLv2, YOLO-World (zero-shot; class-only and LLM-optimized prompts).</li>
+      <li><strong>Fine-tuned detectors:</strong> YOLO11, RT-DETR, DINO, Co-DETR, DETA, Grounding DINO (closed-set).</li>
+      <li><strong>Semi-supervised:</strong> Ensemble-based soft pseudo-labels with consensus/spatial consistency weighting.</li>
+    </ul>
+
+    <h2>Citation</h2>
+    <pre id="bibtex"><code>@misc{abid2025robustlabelefficientdeepwaste,
+  title         = {Robust and Label-Efficient Deep Waste Detection},
+  author        = {Hassan Abid and Khan Muhammad and Muhammad Haris Khan},
+  year          = {2025},
+  eprint        = {2508.18799},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2508.18799}
+}</code></pre>
+
+    <div style="margin-top:8px;">
+      <button id="copy-btn">Copy BibTeX</button>
+    </div>
+
+    <footer>© 2025 Hassan Abid, Khan Muhammad, Muhammad Haris Khan</footer>
+  </main>
+
+  <script>
+    const copyBtn = document.getElementById("copy-btn");
+    copyBtn.addEventListener("click", () => {
+      const bibtex = document.getElementById("bibtex").innerText;
+      navigator.clipboard.writeText(bibtex).then(() => {
+        copyBtn.textContent = "Copied!";
+        setTimeout(() => copyBtn.textContent = "Copy BibTeX", 2000);
+      }).catch(err => {
+        console.error("Copy failed", err);
+      });
+    });
+  </script>
+</body>
+</html>
