@@ -187,15 +187,21 @@ body {
 }
 
 /* ---------- Section dividers (content width, thicker line) ---------- */
-section + section {
-  border-top: 2px solid #d1d5db;   /* thicker (2px), neutral gray */
-  max-width: 100%;                 /* stay within container */
-  margin: 3rem auto 0;              /* space above, center inside container */
-  padding-top: 2.5rem;              /* breathing space below line */
+/* Draw the divider only between content sections, and only at container width */
+.section + .section .container.is-max-desktop {
+  border-top: 2px solid #d1d5db;  /* subtle neutral gray, slightly thicker */
+  margin-top: 2.5rem;             /* space before the new section */
+  padding-top: 2.5rem;            /* space after the line */
 }
 
-section:first-of-type {
-  border-top: none;
+/* Safety: never show a divider before the very first section */
+.section:first-of-type .container.is-max-desktop {
+  border-top: none !important;
   margin-top: 0;
   padding-top: 0;
+}
+
+/* Force left-aligned section titles even if HTML uses has-text-centered */
+.section .title {
+  text-align: left !important;
 }
