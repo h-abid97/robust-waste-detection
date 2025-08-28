@@ -186,11 +186,12 @@ body {
   height: 0px;
 }
 
-/* ---------- Section dividers ---------- */
+/* ---------- Section dividers (content width, thicker line) ---------- */
 section + section {
-  border-top: 1px solid #e5e7eb; /* subtle neutral gray line */
-  margin-top: 2rem;              /* space above */
-  padding-top: 2rem;             /* space below line */
+  border-top: 2px solid #d1d5db;   /* thicker (2px), neutral gray */
+  max-width: 100%;                 /* stay within container */
+  margin: 3rem auto 0;              /* space above, center inside container */
+  padding-top: 2.5rem;              /* breathing space below line */
 }
 
 section:first-of-type {
