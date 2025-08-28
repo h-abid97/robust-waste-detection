@@ -335,11 +335,14 @@ Results will be stored directly into `./experiments/`.
 If you find our work or this repository useful, please consider giving a star :star: and citation.
 
 ```bibtex
-@inproceedings{abid2025robust,
-  title={Robust and Label-Efficient Deep Waste Detection},
-  author={Abid, Hassan and Muhammad, Khan and Khan, Muhammad Haris},
-  booktitle={British Machine Vision Conference (BMVC)},
-  year={2025}
+@misc{abid2025robustlabelefficientdeepwaste,
+  title         = {Robust and Label-Efficient Deep Waste Detection},
+  author        = {Hassan Abid and Khan Muhammad and Muhammad Haris Khan},
+  year          = {2025},
+  eprint        = {2508.18799},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  url           = {https://arxiv.org/abs/2508.18799}
 }
 ```
 
