@@ -243,9 +243,9 @@ section {
 section + section::before {
   content: "";
   display: block;
-  width: 120px;              /* short line */
-  height: 3px;
-  background: var(--accent);
+  width: 420px;              /* short line */
+  height: 2px;
+  background: #d1d5db; /* Tailwind gray-300 */
   margin: 0 auto 3rem;       /* centered, with spacing below */
   border-radius: 2px;
 }
