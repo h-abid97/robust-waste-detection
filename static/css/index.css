@@ -185,3 +185,16 @@ body {
   width: 0px;
   height: 0px;
 }
+
+/* ---------- Section dividers ---------- */
+section + section {
+  border-top: 1px solid #e5e7eb; /* subtle neutral gray line */
+  margin-top: 2rem;              /* space above */
+  padding-top: 2rem;             /* space below line */
+}
+
+section:first-of-type {
+  border-top: none;
+  margin-top: 0;
+  padding-top: 0;
+}
