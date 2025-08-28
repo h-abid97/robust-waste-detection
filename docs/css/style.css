@@ -3,6 +3,8 @@
   --page-max: 960px;
   --radius: 12px;
   --gap: 16px;
+
+  /* Light theme (forced) */
   --bg: #ffffff;
   --text: #111827;       /* neutral-900 */
   --muted: #6b7280;      /* neutral-500 */
@@ -13,8 +15,12 @@
   --code-bg: #f6f8fa;
 }
 
-/* Dark mode (auto) */
-/* @media (prefers-color-scheme: dark){
+/* Force light color-scheme (prevents automatic dark inversion on some UAs) */
+html{ color-scheme: light; }
+
+/* (Optional dark mode block left disabled intentionally) */
+/*
+@media (prefers-color-scheme: dark){
   :root{
     --bg:#0b0e11;
     --text:#e5e7eb;
@@ -25,7 +31,8 @@
     --accent-underline:#0b1220;
     --code-bg:#0e141b;
   }
-} */
+}
+*/
 
 /* ---------- Layout & typography ---------- */
 html, body { margin:0; padding:0; }
@@ -48,40 +55,49 @@ h1{ line-height:1.2; margin:0 0 .25rem; font-weight: 700; }
 h2{ margin: 2rem 0 .75rem; font-weight: 650; }
 p{ margin: 0 0 1rem; }
 
+/* ---------- Lists (ensure bullets/numbering show) ---------- */
+ul, ol { margin: 0 0 1rem; padding-left: 1.25rem; }
+ul { list-style: disc outside; }
+ol { list-style: decimal outside; }
+li + li { margin-top: .25rem; }
+
+/* ---------- Figures ---------- */
+figure { margin: 20px 0; }
+figcaption { font-size: .9rem; color: var(--muted); margin-top: 6px; }
+
 /* ---------- Meta / authors ---------- */
 .meta{
   color: var(--muted);
   margin: .25rem 0 1rem;
   font-size: .98rem;
 }
+.meta sup { margin-left: 2px; }
 
-/* ---------- Links row ---------- */
+/* ---------- Links row (single, consolidated definition) ---------- */
 .links a{
   display:inline-block;
   margin-right:12px;
-  padding-bottom:2px;
-  text-decoration: none;
-  border-bottom: 1px solid var(--line);
-  color: var(--accent);
-}
-.links a:hover{
-  background: var(--accent-underline);
-  border-bottom-color: transparent;
-}
-
-/* Turn link row into buttons (optional, looks nice) */
-.links a{
   border:1px solid var(--line);
   border-radius: 999px;
   padding: 6px 12px;
   background: transparent;
+  color: var(--accent);
+  text-decoration: none;
+  transition: background .2s, border-color .2s;
 }
+/* Fallback hover background first (works everywhere) */
 .links a:hover{
   border-color: var(--accent);
-  background: color-mix(in oklab, var(--accent) 10%, transparent);
+  background: #eef2ff; /* light indigo tint as fallback */
+}
+/* If color-mix is supported, use a nicer blend */
+@supports (background: color-mix(in oklab, white 10%, black)){
+  .links a:hover{
+    background: color-mix(in oklab, var(--accent) 10%, transparent);
+  }
 }
 
-/* ---------- Media & figures ---------- */
+/* ---------- Media & images ---------- */
 img{
   max-width:100%;
   height:auto;
@@ -89,7 +105,7 @@ img{
   display:block;
 }
 
-/* ---------- Cards / grid ---------- */
+/* ---------- Generic grid & card (if used elsewhere) ---------- */
 .grid{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -142,7 +158,7 @@ footer{
   .wrap{ max-width: none; }
 }
 
-/* ---------- Copy Bibtex Button ---------- */
+/* ---------- Copy BibTeX Button ---------- */
 #copy-btn {
   margin-top: 8px;
   padding: 6px 12px;
@@ -152,14 +168,22 @@ footer{
   cursor: pointer;
   font-size: 0.95rem;
   color: var(--text);
-  transition: background .2s, border-color .2s;
+  transition: background .2s, border-color .2s, transform .02s;
 }
+/* Fallback hover background first */
 #copy-btn:hover {
   border-color: var(--accent);
-  background: color-mix(in oklab, var(--accent) 10%, var(--card));
+  background: #eef2ff;
 }
+/* Prefer color-mix when available */
+@supports (background: color-mix(in oklab, white 10%, black)){
+  #copy-btn:hover {
+    background: color-mix(in oklab, var(--accent) 10%, var(--card));
+  }
+}
+#copy-btn:active { transform: translateY(1px); }
 
-/* ---------- Card layout and styling ---------- */
+/* ---------- Highlights (2×2 responsive cards) ---------- */
 .highlights-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -171,32 +195,34 @@ footer{
   border-radius: 14px;
   padding: 20px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, border-color .2s;
   color: #1f2937; /* dark text for readability */
+  border: 1px solid transparent; /* ensure even layout when not colored */
 }
 
-/* Card Hover */
+/* Hover pop */
 .highlight-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  border-color: #93c5fd;
 }
 
-/* Specific color themes */
+/* Color themes per card */
 .highlight-card:nth-child(1) {
   background: #e0f2fe; /* light blue */
-  border: 1px solid #bae6fd;
+  border-color: #bae6fd;
 }
 .highlight-card:nth-child(2) {
   background: #ecfdf5; /* light green */
-  border: 1px solid #bbf7d0;
+  border-color: #bbf7d0;
 }
 .highlight-card:nth-child(3) {
   background: #fef3c7; /* light yellow */
-  border: 1px solid #fde68a;
+  border-color: #fde68a;
 }
 .highlight-card:nth-child(4) {
   background: #fef2f2; /* light red/pink */
-  border: 1px solid #fecaca;
+  border-color: #fecaca;
 }
 
 /* Titles */
