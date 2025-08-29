@@ -206,13 +206,13 @@ body {
   text-align: left !important;
 }
 
-/* Add breathing room after figures */
 figure {
-  margin-bottom: 2.5rem;   /* increase space after the caption */
+  margin-bottom: 3rem;   /* space after the figure (caption included) */
 }
 
 figure figcaption {
-  margin-top: 0.75rem;     /* extra space between image and caption */
+  margin-top: 0.75rem;   /* space between image and caption */
+  margin-bottom: 0.5rem; /* extra buffer below the caption */
   font-size: 0.9rem;
   line-height: 1.4;
 }
