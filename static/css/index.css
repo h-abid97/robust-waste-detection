@@ -190,7 +190,7 @@ body {
 /* Draw the divider only between content sections, and only at container width */
 .section + .section .container.is-max-desktop {
   border-top: 2px solid #F5F5F5;  /* subtle neutral gray, slightly thicker */
-  margin-top: 2.0rem;             /* space before the new section */
+  margin-top: 1.0rem;             /* space before the new section */
   padding-top: 2.5rem;            /* space after the line */
 }
 
