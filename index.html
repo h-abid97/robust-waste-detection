@@ -32,7 +32,7 @@
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
-  <!-- Optional: small table tweaks (keep if you’ll add tables later) -->
+  <!-- Optional: small table tweaks -->
   <style>
     table { width: 100%; border-collapse: collapse; }
     th, td { border: 1px solid #000; padding: 10px; text-align: center; }
@@ -45,17 +45,6 @@
     #table-results th:nth-child(1), #table-results td:nth-child(1) { width: 140px; }
     #table-results th:nth-child(2), #table-results td:nth-child(2) { width: 12%; }
   </style>
-
-  <!-- Google Analytics (optional) -->
-  <!--
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-257CHSRQ00"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-257CHSRQ00');
-  </script>
-  -->
 </head>
 
 <body>
@@ -121,8 +110,8 @@
       <div class="container is-max-desktop">
         <h2 class="title is-3 has-text-left">Abstract</h2>
         <div class="content has-text-justified">
-          <p align="justify">
-            Effective waste sorting is critical for sustainable recycling, yet AI research in this domain lags behind commercial systems due to limited datasets and reliance on legacy detectors. We advance AI-driven waste detection by benchmarking open-vocabulary object detectors (OVOD), establishing strong supervised baselines, and introducing an ensemble-based semi-supervised learning framework on the real-world <em>ZeroWaste</em> dataset. We show that class-only prompts perform poorly in zero-shot OVOD, whereas LLM-optimized prompts substantially improve accuracy. Fine-tuning modern transformer-based detectors yields new baselines of <b>51.6 mAP</b>, more than doubling prior CNN results. Finally, we fuse model predictions to create <em>soft</em> pseudo-labels that improve semi-supervised training; applied to the unlabeled ZeroWaste-s subset, this produces high-quality annotations that boost downstream detectors beyond fully supervised training.
+          <p>
+            Effective waste sorting is critical for sustainable recycling, but academic AI still trails commercial systems due to limited datasets and reliance on legacy detectors. We advance AI-driven waste detection by benchmarking open-vocabulary object detectors (OVOD), establishing strong supervised baselines, and introducing an ensemble-based semi-supervised learning framework on the real-world <em>ZeroWaste</em> dataset. Class-only prompts perform poorly in zero-shot OVOD, whereas LLM-optimized prompts substantially improve accuracy. Fine-tuning modern transformer-based detectors yields new baselines of <b>51.6 mAP</b>, more than doubling prior CNN results. Finally, we fuse model predictions to create <em>soft</em> pseudo-labels that improve semi-supervised training; applied to the unlabeled ZeroWaste-s subset, this produces high-quality annotations that boost downstream detectors beyond fully supervised training.
           </p>
         </div>
       </div>
@@ -146,7 +135,7 @@
         </div>
         <div class="column is-half">
           <div class="box content">
-            <p><b>Semi-supervised:</b> Ensemble-based <em>soft</em> pseudo-labels push Grounding DINO (Swin-B) to <b>54.3 mAP</b> with consistent per-class gains.</p>
+            <p><b>Semi-supervised:</b> Ensemble-based <em>soft</em> pseudo-labels push Grounding DINO (Swin-B) to <b>54.3 mAP</b> with consistent per-class gains (including rare <em>metal</em>).</p>
           </div>
         </div>
         <div class="column is-half">
@@ -162,15 +151,22 @@
   <section class="section">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-left">Method Overview</h2>
+
       <div class="content has-text-justified">
         <p>
-          Our framework integrates three components: (1) zero-shot benchmarking of OVOD models on industrial waste data; (2) supervised fine-tuning of modern detectors to establish strong baselines; and (3) ensemble-based pseudo-labeling on unlabeled data. We fuse predictions across models via Weighted Box Fusion and modulate confidence using spatial consistency and inter-model agreement to obtain <em>soft</em> pseudo-labels for semi-supervised training.
+          We study waste detection in three stages designed to separate <em>capability</em> from <em>adaptation</em> and then scale with <em>unlabeled</em> data:
+        </p>
+
+        <ol>
+          <li><strong>Zero-shot OVOD benchmarking.</strong> Evaluate Grounding&nbsp;DINO, OWLv2, and YOLO-World on ZeroWaste with <em>class-only</em> prompts; then apply an LLM-driven prompt refinement loop to test how far text guidance alone can go under clutter, deformation, and reflectivity.</li>
+          <li><strong>Supervised fine-tuning.</strong> Adapt modern detectors to the domain by training on ZeroWaste-f—establishing strong closed-set baselines (≈<strong>51.6 mAP</strong>) and quantifying the gap to zero-shot transfer.</li>
+          <li><strong>Semi-supervised soft pseudo-labels.</strong> Build an ensemble of fine-tuned models to label ZeroWaste-s: filter detections, IoU-cluster, fuse with WBF, then soft-weight confidence by spatial consistency and inter-model agreement to supervise large-scale training.</li>
+        </ol>
+
+        <p>
+          This pipeline (i) exposes zero-shot limitations under domain shift, (ii) sets robust supervised baselines, and (iii) unlocks further gains by converting unlabeled frames into reliable training signal.
         </p>
       </div>
-      <figure class="image">
-        <img src="./static/images/pseudo_label_pipeline.png" alt="Ensemble-based soft pseudo-labeling pipeline (WBF + consensus weighting).">
-        <figcaption class="has-text-centered">Ensemble-based soft pseudo-labeling pipeline.</figcaption>
-      </figure>
     </div>
   </section>
 
@@ -178,44 +174,66 @@
   <section class="section">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-left">Zero-Shot OVOD</h2>
+
       <div class="content has-text-justified">
         <p>
-          We evaluate Grounding DINO, OWLv2, and YOLO-World on ZeroWaste. With class-only prompts, overall mAP is low (≤ 7.3). Iterative prompt optimization with an LLM notably improves zero-shot performance (e.g., OWLv2 +6.2 mAP), while remaining below supervised baselines in this domain.
+          We benchmark <strong>Grounding DINO</strong>, <strong>OWLv2</strong>, and <strong>YOLO-World</strong> in a <em>zero-shot setting</em> on ZeroWaste using only class-level prompts (<em>“cardboard”</em>, <em>“soft plastic”</em>, <em>“rigid plastic”</em>, <em>“metal”</em>). Performance is uniformly low (mAP ≤ 7.3), with large objects detected more reliably than transparent or reflective ones.
         </p>
       </div>
+
       <figure class="image">
-        <img src="./static/images/optimized_queries_pipeline.png" alt="Iterative prompt optimization pipeline for OVOD.">
-        <figcaption class="has-text-centered">Prompt optimization pipeline for zero-shot OVOD.</figcaption>
+        <img loading="lazy" decoding="async"
+             src="./static/images/zs_class_only_bm.png"
+             alt="Zero-shot results with class-only prompts.">
+        <figcaption class="has-text-centered">
+          Zero-shot detection with class-only prompts: overall mAP is very low across models.
+        </figcaption>
       </figure>
-      <div class="columns">
-        <div class="column">
-          <figure class="image">
-            <img src="./static/images/zs_class_only_bm.png" alt="Zero-shot results with class-only prompts.">
-            <figcaption class="has-text-centered">Zero-shot (class-only prompts): overall mAP across models.</figcaption>
-          </figure>
-        </div>
-        <div class="column">
-          <figure class="image">
-            <img src="./static/images/zs_class_only_v_optimized.png" alt="Class-only vs optimized prompts comparison.">
-            <figcaption class="has-text-centered">Class-only vs optimized prompts: mAP improvements.</figcaption>
-          </figure>
-        </div>
+
+      <div class="content has-text-justified">
+        <p>
+          To improve results, we introduce an <strong>LLM-guided prompt optimization pipeline</strong>, where GPT-4o enriches class names with contextual cues (e.g., <em>“flexible plastic bag”</em>). This yields consistent gains—OWLv2 <strong>+6.2 mAP</strong>, Grounding DINO <strong>+5.4</strong>—yet still trails supervised baselines, underscoring the need for domain adaptation.
+        </p>
       </div>
+
+      <figure class="image">
+        <img loading="lazy" decoding="async"
+             src="./static/images/optimized_queries_pipeline.png"
+             alt="Iterative prompt optimization pipeline for OVOD.">
+        <figcaption class="has-text-centered">
+          Iterative prompt optimization with GPT-4o.
+        </figcaption>
+      </figure>
+
+      <figure class="image">
+        <img loading="lazy" decoding="async"
+             src="./static/images/zs_class_only_v_optimized.png"
+             alt="Class-only vs optimized prompts comparison.">
+        <figcaption class="has-text-centered">
+          Optimized prompts substantially improve zero-shot detection but remain below supervised baselines.
+        </figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- FINE-TUNED BASELINES -->
+  <!-- FINE-TUNED BASLINES -->
   <section class="section">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-left">Fine-Tuned Baselines</h2>
+
       <div class="content has-text-justified">
         <p>
-          Fine-tuning transformer-based detectors on ZeroWaste-f yields substantial gains over legacy CNN baselines. Co-DETR (Swin-L), DETA (Swin-L), and Grounding DINO (Swin-B) each achieve <b>51.6 mAP</b>, surpassing TridentNet (24.2).
+          To overcome zero-shot limits, we fine-tune state-of-the-art <strong>transformer-based detectors</strong> on <em>ZeroWaste-f</em>. This more than <strong>doubles performance</strong> compared to legacy CNNs: while <em>TridentNet</em> reached <strong>24.2 mAP</strong>, <em>Co-DETR (Swin-L)</em>, <em>DETA (Swin-L)</em>, and <em>Grounding DINO (Swin-B)</em> each achieve <strong>51.6 mAP</strong>, setting new baselines for industrial waste detection.
         </p>
       </div>
+
       <figure class="image">
-        <img src="./static/images/sft_benchmark.png" alt="Supervised fine-tuning baselines on ZeroWaste-f.">
-        <figcaption class="has-text-centered">Supervised fine-tuning baselines on ZeroWaste-f.</figcaption>
+        <img loading="lazy" decoding="async"
+             src="./static/images/sft_benchmark.png"
+             alt="Supervised fine-tuning baselines on ZeroWaste-f.">
+        <figcaption class="has-text-centered">
+          Fine-tuning transformer-based detectors on ZeroWaste-f sets new benchmarks, far surpassing legacy CNN models.
+        </figcaption>
       </figure>
     </div>
   </section>
@@ -223,15 +241,33 @@
   <!-- SEMI-SUPERVISED LEARNING -->
   <section class="section">
     <div class="container is-max-desktop">
-      <h2 class="title is-3">Semi-Supervised Learning</h2>
+      <h2 class="title is-3 has-text-left">Semi-Supervised Learning</h2>
+
       <div class="content has-text-justified">
         <p>
-          Using ensemble-generated <em>soft</em> pseudo-labels for ZeroWaste-s improves Grounding DINO from <b>51.6 → 54.3 mAP</b> (Swin-B), with consistent per-class AP gains including rare categories such as <em>metal</em>.
+          We apply <strong>ensemble-based soft pseudo-labeling</strong> on the unlabeled <em>ZeroWaste-s</em> subset. Predictions are fused with consensus-aware weighting to generate reliable supervision for semi-supervised training, reducing the need for costly manual labels.
+        </p>
+        <p>
+          This boosts <em>Grounding DINO (Swin-B)</em> from <strong>51.6 → 54.3 mAP</strong> with consistent per-class AP gains—including rare <em>metal</em>—demonstrating effective scaling beyond limited annotations.
         </p>
       </div>
+
       <figure class="image">
-        <img src="./static/images/semi_sup_results.png" alt="Semi-supervised results (soft ensemble pseudo-labels).">
-        <figcaption class="has-text-centered">Semi-supervised learning improvements (Swin-T, Swin-B).</figcaption>
+        <img loading="lazy" decoding="async"
+             src="./static/images/pseudo_label_pipeline.png"
+             alt="Ensemble-based soft pseudo-labeling: filter → IoU cluster → WBF → consensus-weighted confidence → training.">
+        <figcaption class="has-text-centered">
+          Ensemble-based soft pseudo-labeling: filter → IoU cluster → WBF → consensus-weighted confidence → training.
+        </figcaption>
+      </figure>
+
+      <figure class="image">
+        <img loading="lazy" decoding="async"
+             src="./static/images/semi_sup_results.png"
+             alt="Semi-supervised results using ensemble soft pseudo-labels.">
+        <figcaption class="has-text-centered">
+          Semi-supervised training with ensemble-based soft pseudo-labels improves detection across both Swin-T and Swin-B backbones.
+        </figcaption>
       </figure>
     </div>
   </section>
@@ -240,16 +276,25 @@
   <section class="section">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-left">Dataset & Settings</h2>
+
       <div class="content has-text-justified">
+        <p>
+          All experiments use the <em>ZeroWaste</em> dataset, collected in a full-scale Material Recovery Facility (MRF) with high-resolution overhead imagery. It provides labeled and unlabeled subsets for supervised and semi-supervised learning.
+        </p>
         <ul>
-          <li><b>ZeroWaste-f:</b> 4,503 labeled images with boxes for <em>cardboard</em>, <em>soft plastic</em>, <em>rigid plastic</em>, <em>metal</em>.</li>
-          <li><b>ZeroWaste-s:</b> 6,212 unlabeled images for semi-supervised learning.</li>
-          <li><b>Challenges:</b> high clutter, occlusion, deformation, and severe class imbalance.</li>
+          <li><b>ZeroWaste-f:</b> 4,503 labeled images with bounding boxes for <em>cardboard</em>, <em>soft plastic</em>, <em>rigid plastic</em>, and <em>metal</em>.</li>
+          <li><b>ZeroWaste-s:</b> 6,212 unlabeled images captured under identical conditions for semi-supervised training.</li>
+          <li><b>Challenges:</b> severe class imbalance (cardboard &gt;66%, metal &lt;2%), cluttered scenes (often 15+ objects), occlusions, and deformable materials.</li>
         </ul>
       </div>
+
       <figure class="image">
-        <img src="./static/images/zerowaste-f.png" alt="ZeroWaste dataset examples (f and s).">
-        <figcaption class="has-text-centered">ZeroWaste dataset examples (ZeroWaste-f and ZeroWaste-s).</figcaption>
+        <img loading="lazy" decoding="async"
+             src="./static/images/zerowaste.png"
+             alt="ZeroWaste dataset examples (ZeroWaste-f with GT annotations; ZeroWaste-s unlabeled).">
+        <figcaption class="has-text-centered">
+          ZeroWaste dataset examples: (a) ZeroWaste-f with ground-truth annotations; (b) ZeroWaste-s for semi-supervised learning.
+        </figcaption>
       </figure>
     </div>
   </section>
@@ -258,14 +303,23 @@
   <section class="section">
     <div class="container is-max-desktop">
       <h2 class="title is-3 has-text-left">Final Pseudo-Annotations</h2>
+
       <div class="content has-text-justified">
         <p>
-          Our final set includes <b>33,075</b> boxes across <b>6,065</b> images (ZeroWaste-s). Models trained solely on these annotations outperform their supervised counterparts on ZeroWaste-f test: YOLO11 (+6.3 mAP) and RT-DETR (+4.3 mAP).
+          Leveraging our soft pseudo-labeling framework, we release <strong>33,075 bounding boxes</strong> across <strong>6,065 images</strong> in <em>ZeroWaste-s</em>. These pseudo-labels offer a scalable alternative to manual annotations while maintaining high reliability.
+        </p>
+        <p>
+          Detectors trained exclusively on this pseudo-labeled set generalize strongly: <em>YOLO11</em> improves by <strong>+6.3 mAP</strong> and <em>RT-DETR</em> by <strong>+4.3 mAP</strong> on ZeroWaste-f test—showing pseudo-annotations can rival or even surpass fully supervised training in this domain.
         </p>
       </div>
+
       <figure class="image">
-        <img src="./static/images/final_pseudo_annotations.png" alt="Distribution and examples of final pseudo-annotations.">
-        <figcaption class="has-text-centered">Final pseudo-annotations for ZeroWaste-s.</figcaption>
+        <img loading="lazy" decoding="async"
+             src="./static/images/final_pseudo_annotations.png"
+             alt="Distribution and examples of final pseudo-annotations on ZeroWaste-s.">
+        <figcaption class="has-text-centered">
+          Final pseudo-annotations on ZeroWaste-s: 33k high-quality boxes enabling scalable semi-supervised training.
+        </figcaption>
       </figure>
     </div>
   </section>
@@ -276,7 +330,7 @@
       <h2 class="title is-3 has-text-left">Conclusion</h2>
       <div class="content has-text-justified">
         <p>
-          We benchmark zero-shot OVOD on real-world waste data, establish strong supervised baselines via fine-tuning, and introduce an ensemble-based semi-supervised framework that produces high-quality pseudo-annotations. While zero-shot models benefit from prompt optimization, task-specific fine-tuning and consensus-driven soft pseudo-labels deliver the largest gains, setting a scalable path for AI-assisted waste recovery in industrial MRFs.
+          We benchmark zero-shot OVOD on real-world waste data, establish strong supervised baselines via fine-tuning, and introduce an ensemble-based semi-supervised framework that produces high-quality pseudo-annotations. While zero-shot models benefit from prompt optimization, task-specific fine-tuning and consensus-driven soft pseudo-labels deliver the largest gains—outlining a scalable path for AI-assisted waste recovery in industrial MRFs. Code and pseudo-annotations are available to catalyze future work on robust industrial waste detection.
         </p>
       </div>
     </div>
@@ -306,7 +360,7 @@
     </div>
   </footer>
 
-  <!-- Minimal JS: only what you actually use -->
+  <!-- Minimal JS -->
   <script defer src="./static/js/fontawesome.all.min.js"></script>
 </body>
 </html>
