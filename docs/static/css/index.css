@@ -211,7 +211,7 @@ figure {
 }
 
 figure figcaption {
-  margin-top: 0.75rem;   /* space between image and caption */
+  margin-top: 0.5rem;   /* space between image and caption */
   font-size: 0.9rem;
   line-height: 1.4;
 }
