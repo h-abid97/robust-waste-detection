@@ -207,12 +207,11 @@ body {
 }
 
 figure {
-  margin-bottom: 3rem;   /* space after the figure (caption included) */
+  margin: 2rem 0 3rem;   /* top, left/right, bottom */
 }
 
 figure figcaption {
   margin-top: 0.75rem;   /* space between image and caption */
-  margin-bottom: 0.5rem; /* extra buffer below the caption */
   font-size: 0.9rem;
   line-height: 1.4;
 }
