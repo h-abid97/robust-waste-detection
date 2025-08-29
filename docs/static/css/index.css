@@ -224,3 +224,24 @@ figure figcaption {
   font-size: 0.9rem;
   line-height: 1.4;
 }
+
+/* Highlight card colors */
+.box.highlight-blue {
+  background-color: #eef6ff;  /* soft blue */
+  border: 1px solid #cce0ff;
+}
+
+.box.highlight-green {
+  background-color: #f0fff4;  /* soft green */
+  border: 1px solid #c6f6d5;
+}
+
+.box.highlight-yellow {
+  background-color: #fffbea;  /* soft yellow */
+  border: 1px solid #fefcbf;
+}
+
+.box.highlight-pink {
+  background-color: #fff5f7;  /* soft pink */
+  border: 1px solid #fed7e2;
+}
