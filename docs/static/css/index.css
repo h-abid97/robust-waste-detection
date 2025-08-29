@@ -210,6 +210,15 @@ figure {
   margin: 2rem 0 3rem;   /* top, left/right, bottom */
 }
 
+/* Utility classes for overriding */
+figure.tight-margin {
+  margin-bottom: 1rem !important;  /* smaller gap */
+}
+
+figure.no-margin {
+  margin-bottom: 0 !important;     /* completely remove gap */
+}
+
 figure figcaption {
   margin-top: 0.5rem;   /* space between image and caption */
   font-size: 0.9rem;
