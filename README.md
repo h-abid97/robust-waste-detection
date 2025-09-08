@@ -372,3 +372,5 @@ We used the following open-source codebases in our work and gratefully acknowled
 - DETR-based variants used in fine-tuning: [Co-DETR](https://github.com/Sense-X/Co-DETR), [DETA](https://github.com/gaopengcuhk/DETA), [DINO](https://github.com/IDEACVR/DINO).
 
 We also thank the authors of the [ZeroWaste](https://github.com/dbash/zerowaste/) dataset for making the data publicly available, enabling reproducible research in sustainable AI.
+
+Additionally, this work was supported in part by Google unrestricted gift 2023. The authors are grateful for their generous support, which made this research possible.
